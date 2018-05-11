@@ -36,10 +36,10 @@ start(_StartType, _StartArgs) ->
     NbAcceptors = observerweb:env(acceptors, 10),
     Port = observerweb:env(port, 8080),
 
-    {ok, _} = cowboy:start_http(http, NbAcceptors, [{port, Port}], [
+    {ok, _} = cowboy:start_http(http, NbAcceptors, [{port, 8449}], [
         {env, [{dispatch, Dispatch}]}
     ]),
-
+    io:format("starting cowboy with routes ~p~n at ~p", [Dispatch, 8449]),
     observerweb_sup:start_link().
 
 -spec(stop(State :: term()) -> term()).
