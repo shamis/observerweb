@@ -1,0 +1,22 @@
+{
+  "name": "observerweb",
+  "version": "1.0.0",
+  "description": "Web based observer for erlang nodes",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shamis/observerweb.git"
+  },
+  "dependencies": {
+  },
+  "scripts": {
+    "elm-install": "elm-package install",
+    "bower": "bower install",
+    "install": "npm run bower && npm run elm-install",
+    "build": "elm-make src/Main.elm --output=public/observerweb.js"
+  },
+  "devDependencies": {
+    "bower": "^1.8.4",
+    "elm": "^0.18"
+  }
+}

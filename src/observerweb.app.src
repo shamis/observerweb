@@ -11,7 +11,7 @@
         runtime_tools,
         jiffy
     ]},
-    {env, []},
+    {env, [{port, 8449}]},
     {modules, []},
     {maintainers, ["Bill Wang <bill@freecnpro.net>"]},
     {licenses, ["MIT"]},
