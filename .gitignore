@@ -20,3 +20,4 @@ public
 elm-stuff
 node_modules
 rebar.lock
+package-lock.json
