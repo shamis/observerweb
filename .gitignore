@@ -15,6 +15,9 @@ logs
 _build
 .idea/
 apps/observerweb/observerweb.iml
-elm-stuff
-apps/observerweb/priv/js
 bower_components
+public
+elm-stuff
+node_modules
+rebar.lock
+package-lock.json

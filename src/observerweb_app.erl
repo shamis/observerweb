@@ -27,19 +27,19 @@ start(_StartType, _StartArgs) ->
         {'_', [
           {"/", cowboy_static, {priv_file, observerweb, "index.html"}},
           {"/css/[...]", cowboy_static, {priv_dir, observerweb, "css"}},
-          {"/js/[...]", cowboy_static, {priv_dir, observerweb, "js"}},
+          {"/bower_components/[...]", cowboy_static, {priv_dir, observerweb, "bower_components"}},
+          {"/public/[...]", cowboy_static, {priv_dir, observerweb, "public"}},
           {"/img/[...]", cowboy_static, {priv_dir, observerweb, "img"}},
           {"/info", observerweb_handler, []}
         ]}
     ]),
 
     NbAcceptors = observerweb:env(acceptors, 10),
-    Port = observerweb:env(port, 8080),
+    Port = observerweb:env(port, 8449),
 
     {ok, _} = cowboy:start_http(http, NbAcceptors, [{port, Port}], [
         {env, [{dispatch, Dispatch}]}
     ]),
-
     observerweb_sup:start_link().
 
 -spec(stop(State :: term()) -> term()).

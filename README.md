@@ -19,15 +19,22 @@ Currently supported:
 - [ ] Trace Overview
 
 ## Usage
-Build and relese.
+Build backend
 ```bash
-make rel
+rebar3 compile
+```
+
+Build fornt end
+```bash
+cd priv
+npm install
+npm run build
 ```
 To start the release in the foreground.
 ```bash
-./_build/default/rel/observerweb/bin/observerweb console
+./start.sh
 ```
-Open http://127.0.0.1:8080 in your browser
+Open http://127.0.0.1:8449 in your browser
 
 
 ## License

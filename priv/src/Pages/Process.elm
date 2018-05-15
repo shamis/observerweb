@@ -69,7 +69,7 @@ updateProcesses processes model =
         process =
             List.head (List.filter (\i -> i.registered_name == model.id || i.pid == model.id) processes.processes)
     in
-    { model | process = process }
+        { model | process = process }
 
 
 overview_info : Process -> Cell Msg
@@ -173,7 +173,7 @@ find_prosess_from_pid processes pid =
                 ( Nothing, _ ) ->
                     []
     in
-    List.head find_prosess
+        List.head find_prosess
 
 
 links_info : Process -> Cell Msg
@@ -186,13 +186,13 @@ links_info process =
                         Lists.li [] [ Lists.content [] [ a [ Routing.processPath item |> href ] [ text item ] ] ]
                     )
     in
-    cell [ Material.Grid.size All 4 ]
-        [ Options.styled p
-            [ Typo.title ]
-            [ text "Links"
-            , Lists.ul [] links
+        cell [ Material.Grid.size All 4 ]
+            [ Options.styled p
+                [ Typo.title ]
+                [ text "Links"
+                , Lists.ul [] links
+                ]
             ]
-        ]
 
 
 ancestors_info : Process -> Cell Msg
@@ -205,13 +205,13 @@ ancestors_info process =
                         Lists.li [] [ Lists.content [] [ a [ Routing.processPath item |> href ] [ text item ] ] ]
                     )
     in
-    cell [ Material.Grid.size All 4 ]
-        [ Options.styled p
-            [ Typo.title ]
-            [ text "Ancestors"
-            , Lists.ul [] ancestors
+        cell [ Material.Grid.size All 4 ]
+            [ Options.styled p
+                [ Typo.title ]
+                [ text "Ancestors"
+                , Lists.ul [] ancestors
+                ]
             ]
-        ]
 
 
 monitors_info : Process -> Cell Msg
@@ -224,13 +224,13 @@ monitors_info process =
                         Lists.li [] [ Lists.content [] [ text item ] ]
                     )
     in
-    cell [ Material.Grid.size All 4 ]
-        [ Options.styled p
-            [ Typo.title ]
-            [ text "Monitors"
-            , Lists.ul [] ancestors
+        cell [ Material.Grid.size All 4 ]
+            [ Options.styled p
+                [ Typo.title ]
+                [ text "Monitors"
+                , Lists.ul [] ancestors
+                ]
             ]
-        ]
 
 
 view : Model -> Html Msg
@@ -244,50 +244,50 @@ view model =
                 n ->
                     n
     in
-    case model.process of
-        Nothing ->
-            Options.styled p
-                [ css "width" "100%"
-                , css "margin" "16px"
-                ]
-                [ Options.styled p
-                    [ Typo.headline ]
-                    [ Button.render Mdl
-                        [ 0, 0 ]
-                        model.mdl
-                        [ Button.icon, Button.ripple, onClick BackMsg ]
-                        [ Icon.i "reply" ]
-                    , text "Not found"
+        case model.process of
+            Nothing ->
+                Options.styled p
+                    [ css "width" "100%"
+                    , css "margin" "16px"
                     ]
-                ]
-                |> Views.Page.body
+                    [ Options.styled p
+                        [ Typo.headline ]
+                        [ Button.render Mdl
+                            [ 0, 0 ]
+                            model.mdl
+                            [ Button.icon, Button.ripple, onClick BackMsg ]
+                            [ Icon.i "reply" ]
+                        , text "Not found"
+                        ]
+                    ]
+                    |> Views.Page.body
 
-        Just process ->
-            Options.styled p
-                [ css "width" "100%"
-                , css "margin" "16px"
-                ]
-                [ Options.styled p
-                    [ Typo.headline ]
-                    [ Button.render Mdl
-                        [ 0, 0 ]
-                        model.mdl
-                        [ Button.icon, Button.ripple, onClick BackMsg ]
-                        [ Icon.i "reply" ]
-                    , text (String.join " " [ process.registered_name, process.pid ])
+            Just process ->
+                Options.styled p
+                    [ css "width" "100%"
+                    , css "margin" "16px"
                     ]
-                , Options.styled div
-                    []
-                    [ [ overview_info process
-                      , memory_info process
-                      , links_info process
-                      , ancestors_info process
-                      , monitors_info process
-                      ]
-                        |> grid []
+                    [ Options.styled p
+                        [ Typo.headline ]
+                        [ Button.render Mdl
+                            [ 0, 0 ]
+                            model.mdl
+                            [ Button.icon, Button.ripple, onClick BackMsg ]
+                            [ Icon.i "reply" ]
+                        , text (String.join " " [ process.registered_name, process.pid ])
+                        ]
+                    , Options.styled div
+                        []
+                        [ [ overview_info process
+                          , memory_info process
+                          , links_info process
+                          , ancestors_info process
+                          , monitors_info process
+                          ]
+                            |> grid []
+                        ]
                     ]
-                ]
-                |> Views.Page.body
+                    |> Views.Page.body
 
 
 subscriptions : Model -> Sub Msg
