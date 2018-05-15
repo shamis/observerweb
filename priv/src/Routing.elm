@@ -51,7 +51,7 @@ matchers =
         , map ApplicationsRoute (s "applications")
         , map LoadChartsRoute (s "load_charts")
         , map MemoryAllocatorsRoute (s "memory_alloc")
-        , map ProcessRoute (s "processes" </> string)
+        , map ProcessRoute (s "process" </> string)
         , map ProcessesRoute (s "processes")
         , map PortsRoute (s "ports")
         , map SystemRoute (s "system")
@@ -68,7 +68,11 @@ parseLocation location =
             route
 
         Nothing ->
-            NotFoundRoute
+            let
+                _ =
+                    Debug.log "no route fond for " location
+            in
+                NotFoundRoute
 
 
 title : Route -> String
@@ -133,7 +137,7 @@ memoryAllocatorsPath =
 
 processPath : ProcessId -> String
 processPath id =
-    "#processes/" ++ id
+    "#process/" ++ id
 
 
 processesPath : String

@@ -40,7 +40,7 @@ init location =
                 , c
                 ]
     in
-    ( Models.initialModel tab, cmd )
+        ( Models.initialModel tab, cmd )
 
 
 main : Program Never Models.Model Msg
@@ -65,118 +65,118 @@ update msg model =
                 ( newModel, newCmd ) =
                     subUpdate subMsg subModel
             in
-            ( { model | tab = toModel newModel }, Cmd.map toMsg newCmd )
+                ( { model | tab = toModel newModel }, Cmd.map toMsg newCmd )
     in
-    case ( model.tab, msg ) of
-        ( _, Msgs.Mdl msg_ ) ->
-            Material.update Msgs.Mdl msg_ model
+        case ( model.tab, msg ) of
+            ( _, Msgs.Mdl msg_ ) ->
+                Material.update Msgs.Mdl msg_ model
 
-        ( _, Msgs.OnLocationChange location ) ->
-            let
-                newRoute =
-                    parseLocation location
+            ( _, Msgs.OnLocationChange location ) ->
+                let
+                    newRoute =
+                        parseLocation location
 
-                ( tab, cmd ) =
-                    routeToPage newRoute
-            in
-            ( { model | tab = tab, title = Routing.title newRoute }, cmd )
+                    ( tab, cmd ) =
+                        routeToPage newRoute
+                in
+                    ( { model | tab = tab, title = Routing.title newRoute }, cmd )
 
-        ( Models.System sub_model, Msgs.SystemMsg a ) ->
-            toPage Models.System Msgs.SystemMsg System.update a sub_model
+            ( Models.System sub_model, Msgs.SystemMsg a ) ->
+                toPage Models.System Msgs.SystemMsg System.update a sub_model
 
-        ( Models.LoadCharts sub_model, Msgs.LoadChartsMsg a ) ->
-            toPage Models.LoadCharts Msgs.LoadChartsMsg LoadCharts.update a sub_model
+            ( Models.LoadCharts sub_model, Msgs.LoadChartsMsg a ) ->
+                toPage Models.LoadCharts Msgs.LoadChartsMsg LoadCharts.update a sub_model
 
-        ( Models.MemoryAllocators sub_model, Msgs.MemoryAllocatorsMsg a ) ->
-            toPage Models.MemoryAllocators Msgs.MemoryAllocatorsMsg MemoryAllocators.update a sub_model
+            ( Models.MemoryAllocators sub_model, Msgs.MemoryAllocatorsMsg a ) ->
+                toPage Models.MemoryAllocators Msgs.MemoryAllocatorsMsg MemoryAllocators.update a sub_model
 
-        ( Models.Applications sub_model, Msgs.ApplicationsMsg a ) ->
-            toPage Models.Applications Msgs.ApplicationsMsg Applications.update a sub_model
+            ( Models.Applications sub_model, Msgs.ApplicationsMsg a ) ->
+                toPage Models.Applications Msgs.ApplicationsMsg Applications.update a sub_model
 
-        ( Models.Process sub_model, Msgs.ProcessMsg a ) ->
-            toPage Models.Process Msgs.ProcessMsg Process.update a sub_model
+            ( Models.Process sub_model, Msgs.ProcessMsg a ) ->
+                toPage Models.Process Msgs.ProcessMsg Process.update a sub_model
 
-        ( Models.Processes sub_model, Msgs.ProcessesMsg a ) ->
-            toPage Models.Processes Msgs.ProcessesMsg Processes.update a sub_model
+            ( Models.Processes sub_model, Msgs.ProcessesMsg a ) ->
+                toPage Models.Processes Msgs.ProcessesMsg Processes.update a sub_model
 
-        ( Models.Ports sub_model, Msgs.PortsMsg a ) ->
-            toPage Models.Ports Msgs.PortsMsg Ports.update a sub_model
+            ( Models.Ports sub_model, Msgs.PortsMsg a ) ->
+                toPage Models.Ports Msgs.PortsMsg Ports.update a sub_model
 
-        ( Models.TableViewer sub_model, Msgs.TableViewerMsg a ) ->
-            toPage Models.TableViewer Msgs.TableViewerMsg TableViewer.update a sub_model
+            ( Models.TableViewer sub_model, Msgs.TableViewerMsg a ) ->
+                toPage Models.TableViewer Msgs.TableViewerMsg TableViewer.update a sub_model
 
-        ( Models.TableData sub_model, Msgs.TableDataMsg a ) ->
-            toPage Models.TableData Msgs.TableDataMsg TableData.update a sub_model
+            ( Models.TableData sub_model, Msgs.TableDataMsg a ) ->
+                toPage Models.TableData Msgs.TableDataMsg TableData.update a sub_model
 
-        ( Models.TraceOverview sub_model, Msgs.TraceOverviewMsg a ) ->
-            toPage Models.TraceOverview Msgs.TraceOverviewMsg TraceOverview.update a sub_model
+            ( Models.TraceOverview sub_model, Msgs.TraceOverviewMsg a ) ->
+                toPage Models.TraceOverview Msgs.TraceOverviewMsg TraceOverview.update a sub_model
 
-        ( Models.About sub_model, Msgs.AboutMsg a ) ->
-            toPage Models.About Msgs.AboutMsg About.update a sub_model
+            ( Models.About sub_model, Msgs.AboutMsg a ) ->
+                toPage Models.About Msgs.AboutMsg About.update a sub_model
 
-        ( _, Msgs.NewNodesMsg (Ok nodes) ) ->
-            ( updateNodes nodes model, Cmd.none )
+            ( _, Msgs.NewNodesMsg (Ok nodes) ) ->
+                ( updateNodes nodes model, Cmd.none )
 
-        ( _, Msgs.NewNodesMsg (Err _) ) ->
-            ( model, Cmd.none )
+            ( _, Msgs.NewNodesMsg (Err _) ) ->
+                ( model, Cmd.none )
 
-        ( _, Msgs.ChangeNodeNameMsg nodeName ) ->
-            let
-                connectNode =
-                    model.connectNode
-            in
-            ( { model | connectNode = { connectNode | nodeName = nodeName } }, Cmd.none )
+            ( _, Msgs.ChangeNodeNameMsg nodeName ) ->
+                let
+                    connectNode =
+                        model.connectNode
+                in
+                    ( { model | connectNode = { connectNode | nodeName = nodeName } }, Cmd.none )
 
-        ( _, Msgs.ChangeNodeCookieMsg nodeCookie ) ->
-            let
-                connectNode =
-                    model.connectNode
-            in
-            ( { model | connectNode = { connectNode | nodeCookie = nodeCookie } }, Cmd.none )
+            ( _, Msgs.ChangeNodeCookieMsg nodeCookie ) ->
+                let
+                    connectNode =
+                        model.connectNode
+                in
+                    ( { model | connectNode = { connectNode | nodeCookie = nodeCookie } }, Cmd.none )
 
-        ( _, Msgs.ConnectNodeMsg ) ->
-            ( model, connectNode model )
+            ( _, Msgs.ConnectNodeMsg ) ->
+                ( model, connectNode model )
 
-        ( _, Msgs.ChangeNode node ) ->
-            case node of
-                Just n ->
-                    ( model, changeNode n )
+            ( _, Msgs.ChangeNode node ) ->
+                case node of
+                    Just n ->
+                        ( model, changeNode n )
 
-                Nothing ->
-                    ( model, Cmd.none )
+                    Nothing ->
+                        ( model, Cmd.none )
 
-        ( _, Msgs.ConnectNodeResponseMsg (Ok response) ) ->
-            let
-                selectedNode =
-                    if response.connected then
-                        Just response.node
-                    else
-                        model.selectedNode
+            ( _, Msgs.ConnectNodeResponseMsg (Ok response) ) ->
+                let
+                    selectedNode =
+                        if response.connected then
+                            Just response.node
+                        else
+                            model.selectedNode
 
-                ( snackbar, cmd ) =
-                    Snackbar.add (Snackbar.toast response <| "Node: " ++ response.node ++ " Connected: " ++ toString response.connected) model.snackbar |> map2nd (Cmd.map Msgs.Snackbar)
-            in
-            ( { model | snackbar = snackbar, selectedNode = selectedNode }, cmd )
+                    ( snackbar, cmd ) =
+                        Snackbar.add (Snackbar.toast response <| "Node: " ++ response.node ++ " Connected: " ++ toString response.connected) model.snackbar |> map2nd (Cmd.map Msgs.Snackbar)
+                in
+                    ( { model | snackbar = snackbar, selectedNode = selectedNode }, cmd )
 
-        ( _, Msgs.ConnectNodeResponseMsg (Err _) ) ->
-            ( model, Cmd.none )
+            ( _, Msgs.ConnectNodeResponseMsg (Err _) ) ->
+                ( model, Cmd.none )
 
-        ( _, Msgs.Snackbar (Snackbar.Begin k) ) ->
-            model |> pure
+            ( _, Msgs.Snackbar (Snackbar.Begin k) ) ->
+                model |> pure
 
-        ( _, Msgs.Snackbar (Snackbar.End k) ) ->
-            model |> pure
+            ( _, Msgs.Snackbar (Snackbar.End k) ) ->
+                model |> pure
 
-        ( _, Msgs.Snackbar (Snackbar.Click k) ) ->
-            ( model, Cmd.none )
+            ( _, Msgs.Snackbar (Snackbar.Click k) ) ->
+                ( model, Cmd.none )
 
-        ( _, Msgs.Snackbar msg_ ) ->
-            Snackbar.update msg_ model.snackbar
-                |> map1st (\s -> { model | snackbar = s })
-                |> map2nd (Cmd.map Msgs.Snackbar)
+            ( _, Msgs.Snackbar msg_ ) ->
+                Snackbar.update msg_ model.snackbar
+                    |> map1st (\s -> { model | snackbar = s })
+                    |> map2nd (Cmd.map Msgs.Snackbar)
 
-        ( _, _ ) ->
-            ( model, Cmd.none )
+            ( _, _ ) ->
+                ( model, Cmd.none )
 
 
 routeToPage : Routing.Route -> ( Models.Page, Cmd Msg )
@@ -290,7 +290,7 @@ subscriptions model =
                 Models.TraceOverview sub_model ->
                     Sub.map Msgs.TraceOverviewMsg (TraceOverview.subscriptions sub_model)
     in
-    Sub.batch
-        [ sub
-        , Material.subscriptions Msgs.Mdl model
-        ]
+        Sub.batch
+            [ sub
+            , Material.subscriptions Msgs.Mdl model
+            ]

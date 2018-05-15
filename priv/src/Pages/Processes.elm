@@ -87,20 +87,20 @@ view model =
                                     ]
                             )
     in
-    Table.table [ css "width" "100%", css "border" "0" ]
-        [ Table.thead []
-            [ Table.tr []
-                [ Table.th [ Table.numeric, css "width" "13%" ] [ text "Pid" ]
-                , Table.th [ Table.numeric, css "width" "24%" ] [ text "Name or Initial Func" ]
-                , Table.th [ css "width" "13%" ] [ text "Reds" ]
-                , Table.th [ css "width" "13%" ] [ text "Memory" ]
-                , Table.th [ css "width" "13%" ] [ text "MsgQ" ]
-                , Table.th [ Table.numeric, css "width" "24%" ] [ text "Current Function" ]
+        Table.table [ css "width" "100%", css "border" "0" ]
+            [ Table.thead []
+                [ Table.tr []
+                    [ Table.th [ Table.numeric, css "width" "13%" ] [ text "Pid" ]
+                    , Table.th [ Table.numeric, css "width" "24%" ] [ text "Name or Initial Func" ]
+                    , Table.th [ css "width" "13%" ] [ text "Reds" ]
+                    , Table.th [ css "width" "13%" ] [ text "Memory" ]
+                    , Table.th [ css "width" "13%" ] [ text "MsgQ" ]
+                    , Table.th [ Table.numeric, css "width" "24%" ] [ text "Current Function" ]
+                    ]
                 ]
+            , Table.tbody [] processes
             ]
-        , Table.tbody [] processes
-        ]
-        |> Views.Page.body
+            |> Views.Page.body
 
 
 subscriptions : Model -> Sub Msg

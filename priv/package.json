@@ -9,10 +9,10 @@
   },
   "dependencies": {},
   "scripts": {
-    "elm-install": "elm-package install",
+    "elm-install": "elm-package install --yes",
     "bower": "bower install",
-    "install": "npm run bower && npm run elm-install --yes",
-    "build": "elm-make src/Main.elm --output=public/observerweb.js"
+    "install": "npm run bower && npm run elm-install",
+    "build": "elm-make --warn src/Main.elm --output=public/observerweb.js"
   },
   "devDependencies": {
     "bower": "^1.8.4",
